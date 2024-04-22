@@ -7,6 +7,7 @@ import 'package:coupple_app/presentation/home/show_day_page.dart';
 import 'package:coupple_app/presentation/home/show_event_page.dart';
 import 'package:coupple_app/presentation/home/show_location_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -72,8 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: 'Couple',
                     horizontalPadding: horizontalPadding,
                     verticalPadding: verticalPadding),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .7,
+                Expanded(
                   child: PageView(
                       onPageChanged: (index) {
                         currentIndex = index;

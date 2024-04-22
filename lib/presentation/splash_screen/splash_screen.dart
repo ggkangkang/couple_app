@@ -1,9 +1,12 @@
+import 'package:coupple_app/core/const.dart';
 import 'package:coupple_app/core/counter.dart';
+import 'package:coupple_app/core/injection.dart';
 import 'package:coupple_app/core/utils.dart';
 import 'package:coupple_app/core/widget/couple_body.dart';
 import 'package:coupple_app/presentation/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,6 +34,17 @@ class _SplashScreenState extends State<SplashScreen> {
       setState(() {
         dayTgt = counterDay;
       });
+    }
+  }
+
+  Future<bool> storeDate(DateTime date) async {
+    try {
+      String dateString = date.toIso8601String();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString(firstDateKey, dateString);
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -72,11 +86,14 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               if (selectedDate != null)
                 FilledButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                    onPressed: () async {
+                      final storeResult = await storeDate(selectedDate!);
+                      if (storeResult) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()));
+                      }
                     },
                     icon: const Icon(Icons.navigate_next),
                     label: const Text('Next'))

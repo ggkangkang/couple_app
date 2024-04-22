@@ -1,11 +1,14 @@
 import 'package:coupple_app/core/const.dart';
-import 'package:coupple_app/presentation/home/home.dart';
 import 'package:coupple_app/presentation/splash_screen/splash_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'core/injection.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  setupLocator(); //* injection
+  runApp(const ProviderScope(
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

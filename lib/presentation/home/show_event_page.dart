@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/widgets.dart';
 
 class ShowEventPage extends StatelessWidget {
   const ShowEventPage(
@@ -16,12 +16,35 @@ class ShowEventPage extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(35)),
       //color: Colors.white,
-      height: MediaQuery.of(context).size.height * 0.9,
+      //height: MediaQuery.of(context).size.height * 0.9,
       width: MediaQuery.of(context).size.width,
-      child: const Center(
-          child: Text(
-        'Events',
-        style: TextStyle(fontSize: 25),
+      child: Center(
+          child: ListView.separated(
+        itemCount: 5,
+        padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+        itemBuilder: (context, index) => const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: ListTile(
+            contentPadding: EdgeInsets.all(0),
+            title: Text(
+              'First Day',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.black54),
+            ),
+            subtitle: Text(
+              '14 Oct, 2024',
+              style: TextStyle(color: Colors.black54),
+            ),
+          ),
+        ),
+        separatorBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Divider(
+            color: Colors.grey[300],
+          ),
+        ),
       )),
     );
   }
