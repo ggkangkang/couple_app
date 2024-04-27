@@ -6,11 +6,14 @@ class MyAppBar extends StatelessWidget {
       {super.key,
       required this.horizontalPadding,
       required this.verticalPadding,
-      this.title = ''});
+      this.title = '',
+      this.color = Colors.white
+      });
 
   final double horizontalPadding;
   final double verticalPadding;
   final String title;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class MyAppBar extends StatelessWidget {
           Center(
             child: Text(
               title,
-              style: GoogleFonts.bebasNeue(fontSize: 25, color: Colors.white),
+              style: GoogleFonts.bebasNeue(fontSize: 25, color: color),
             ),
           ),
           // Row(

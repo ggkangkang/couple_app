@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coupple_app/core/const.dart';
 import 'package:coupple_app/core/counter.dart';
+import 'package:coupple_app/core/services/firestore.dart';
 import 'package:coupple_app/core/utils.dart';
+import 'package:coupple_app/core/widget/couple_body.dart';
 import 'package:coupple_app/core/widget/couple_bottombar.dart';
 import 'package:coupple_app/core/widget/my_app_bar.dart';
 import 'package:coupple_app/presentation/home/show_day_page.dart';
@@ -20,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime? selectedDate;
   int currentIndex = 1;
   int dayTgt = 0;
+  FirestoreServices fireStoreServices = FirestoreServices();
 
   PageController pageController = PageController(initialPage: 1);
   final double horizontalPadding = 25;
@@ -52,43 +56,36 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: currentIndex == 2
             ? FloatingActionButton(
                 shape: const CircleBorder(),
-                onPressed: () {},
+                onPressed: () {
+                  fireStoreServices.addEvent('200Day');
+                },
                 child: const Icon(Icons.add),
               )
             : null,
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [primaryColor, Colors.white],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: const [0.0, 0.22]),
-          ),
-          child: SafeArea(
-            child: Column(
-              //mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyAppBar(
-                    title: 'Couple',
-                    horizontalPadding: horizontalPadding,
-                    verticalPadding: verticalPadding),
-                Expanded(
-                  child: PageView(
-                      onPageChanged: (index) {
-                        currentIndex = index;
-                      },
-                      controller: pageController,
-                      children: page),
-                ),
+        body: CoupleBody(
+          child: Column(
+            //mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyAppBar(
+                  title: 'Couple',
+                  horizontalPadding: horizontalPadding,
+                  verticalPadding: verticalPadding),
+              Expanded(
+                child: PageView(
+                    onPageChanged: (index) {
+                      currentIndex = index;
+                    },
+                    controller: pageController,
+                    children: page),
+              ),
 
-                // FilledButton(
-                //     onPressed: () {
-                //       showDateTimePicker(context);
-                //     },
-                //     child: const Text('Select Date'))
-              ],
-            ),
+              // FilledButton(
+              //     onPressed: () {
+              //       showDateTimePicker(context);
+              //     },
+              //     child: const Text('Select Date'))
+            ],
           ),
         ),
         bottomNavigationBar: CoupleBottomBar(

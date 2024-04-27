@@ -1,11 +1,18 @@
 import 'package:coupple_app/core/const.dart';
+import 'package:coupple_app/firebase_options.dart';
+import 'package:coupple_app/presentation/login/login.dart';
 import 'package:coupple_app/presentation/splash_screen/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/injection.dart';
 
 void main() async {
   setupLocator(); //* injection
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(
     child: MyApp(),
   ));
@@ -23,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const LoginPage(),
     );
   }
 }
