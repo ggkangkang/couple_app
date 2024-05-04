@@ -7,27 +7,35 @@ class MyAppBar extends StatelessWidget {
       required this.horizontalPadding,
       required this.verticalPadding,
       this.title = '',
-      this.color = Colors.white
-      });
+      this.color = Colors.white, this.onLogoutPressed});
 
   final double horizontalPadding;
   final double verticalPadding;
   final String title;
   final Color? color;
+  final void Function()? onLogoutPressed;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding, vertical: verticalPadding),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Center(
-            child: Text(
-              title,
-              style: GoogleFonts.bebasNeue(fontSize: 25, color: color),
-            ),
+          const IconButton(onPressed: null, icon: Text('')),
+          const Spacer(),
+          Text(
+            title,
+            style: GoogleFonts.bebasNeue(fontSize: 25, color: color),
           ),
+          const Spacer(),
+          IconButton(
+              onPressed: onLogoutPressed,
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ))
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [

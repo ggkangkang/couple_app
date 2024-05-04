@@ -39,7 +39,6 @@ class SignInButton extends StatelessWidget {
 
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            
             backgroundColor: _backgroundColor,
             shape: const CircleBorder()),
         onPressed: onPressed,

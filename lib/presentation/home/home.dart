@@ -1,14 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coupple_app/core/const.dart';
-import 'package:coupple_app/core/counter.dart';
 import 'package:coupple_app/core/services/firestore.dart';
-import 'package:coupple_app/core/utils.dart';
 import 'package:coupple_app/core/widget/couple_body.dart';
 import 'package:coupple_app/core/widget/couple_bottombar.dart';
 import 'package:coupple_app/core/widget/my_app_bar.dart';
 import 'package:coupple_app/presentation/home/show_day_page.dart';
 import 'package:coupple_app/presentation/home/show_event_page.dart';
 import 'package:coupple_app/presentation/home/show_location_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -20,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //final user = FirebaseAuth.instance.currentUser!;
   DateTime? selectedDate;
   int currentIndex = 1;
   int dayTgt = 0;
@@ -37,8 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
+    //print(user.email);
     List<Widget> page = [
       ShowLocationPage(
           horizontalPadding: horizontalPadding,
@@ -69,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               MyAppBar(
                   title: 'Couple',
+                  onLogoutPressed: signUserOut,
                   horizontalPadding: horizontalPadding,
                   verticalPadding: verticalPadding),
               Expanded(
